@@ -1,0 +1,17 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+	<div class="text-center"><br>
+		<a href="/">Dashboard</a>
+		<span sec:authorize="hasRole('ADMIN')">&nbsp; |&nbsp;&nbsp;</span>
+		<a sec:authorize="hasRole('ADMIN')" href="/insertTaxi">Insert Taxi</a>
+		<span sec:authorize="hasRole('ADMIN')">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+		<a sec:authorize="hasRole('ADMIN')" href="/displayTaxis">Display Taxis</a>
+		<span sec:authorize="hasRole('ADMIN')">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+		<a sec:authorize="hasRole('ADMIN')" href="/insertBooking">Insert Booking</a>
+		<span sec:authorize="hasAnyRole('USER', 'ADMIN')">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+		<a sec:authorize="hasAnyRole('USER', 'ADMIN')" href="/displayBookings">Display Bookings</a>
+	</div>
+	<div class="text-center"><br> &copy;  TaxiApp. 2024 <br><br></div>
+	<span sec:authorize="isAuthenticated()"> | Logged user: <span sec:authentication="name"></span> | <a th:href="@{/logout}">Logout</a></span>
+</body>
+</html>

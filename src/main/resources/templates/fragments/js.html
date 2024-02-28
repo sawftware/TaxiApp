@@ -1,0 +1,62 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+	<div th:fragment="jquery">
+		<script src="/js/jquery.min.js"></script>
+		<script src="/js/jquery-ui.min.js"></script>
+		<script src="/js/jquery.validate.min.js"></script>
+		<script src="/js/additional-methods.min.js"></script>
+		<link rel="stylesheet" href="/css/jquery-ui.min.css" />
+	</div>
+
+	<div th:fragment="bootstrap">
+		<script src="/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="/css/bootstrap.min.css" />
+	</div>
+
+	<div th:fragment="taxi-validation">
+		<script>
+			$(document).ready(function() {
+				$('#insertTaxiForm').validate({
+					rules : {
+						registration : {
+							required : true,
+							minlength: 10,
+							maxlength: 12
+						},
+					},
+					messages : {
+						registration : {
+							required : " * Registration field is required",
+							minlength: " * Registration must contain at least 10 characters",
+							maxlength: " * Registration must only contain 12 characters"
+						}
+					}
+				});
+			});
+		</script>
+	</div>
+
+	<div th:fragment="booking-validation">
+		<script>
+			$(document).ready(function() {
+				$('#insertBookingForm').validate({
+					rules : {
+						customer : {
+							required : true,
+							minlength: 2,
+							maxlength: 25
+						},
+					},
+					messages : {
+						registration : {
+							required : " * Customer field is required",
+							minlength: " * Customer must contain at least 2 characters",
+							maxlength: " * Customer must only contain 25 characters"
+						}
+					}
+				});
+			});
+		</script>
+	</div>
+</body>
+</html>

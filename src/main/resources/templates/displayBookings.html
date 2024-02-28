@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>TaxiApp - Display Bookings</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    </head>
+    <body class="text-center">
+        <div th:insert="~{fragments/js :: jquery}"></div>
+        <div th:insert="~{fragments/js :: bootstrap}"></div>
+        <div th:insert="~{fragments/navbar :: navbar}"></div>
+
+        <div class="container">
+            <div class="row">
+                <h1>List of Bookings</h1>
+
+                <div th:if="!${#lists.isEmpty(bookings)}">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center">Booking ID</th>
+                                <th scope="col" class="text-center">Booking Center</th>
+                                <th scope="col" class="text-center">Customer</th>
+                                <th scope="col" class="text-center">Taxi ID</th>
+                                <th scope="col" class="text-center">Taxi Registration</th>
+                                <th scope="col" class="text-center">Created</th>
+                                <th scope="col" class="text-center">Assigned</th>
+                                <th scope="col" class="text-center">Assign?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="booking : ${bookings}">
+                                <td th:text="${booking.bookingId}" />
+                                <td th:text="${booking.bookingCenter}" />
+                                <td th:text="${booking.customer}" />
+                                <td th:text="${booking.taxi} ? ${booking.taxi.taxiId} : 'Unassigned'" />
+                                <td th:text="${booking.taxi} ? ${booking.taxi.registration} : 'Unassigned'" />
+                                <td th:text="${booking.createDt}" />
+                                <td th:text="${booking.assignedDt} ? ${booking.assignedDt} : 'Unassigned'" />
+                                <td th:text="${booking.assignedDt} ? ${booking.assignedDt} : 'Unassigned'" />
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div th:if="${#lists.isEmpty(bookings)}">
+                    <h2>No bookings have been created</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center"><br>
+            <a href="/">Dashboard</a>
+            <span sec:authorize="hasRole('ADMIN')">&nbsp; |&nbsp;&nbsp;</span>
+            <a sec:authorize="hasRole('ADMIN')" href="/insertTaxi">Insert Taxi</a>
+            <span sec:authorize="hasRole('ADMIN')">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <a sec:authorize="hasRole('ADMIN')" href="/displayTaxis">Display Taxis</a>
+            <span sec:authorize="hasRole('ADMIN')">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <a sec:authorize="hasRole('ADMIN')" href="/insertBooking">Insert Booking</a>
+            <span sec:authorize="hasAnyRole('USER', 'ADMIN')">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <a sec:authorize="hasAnyRole('USER', 'ADMIN')" href="/displayBookings">Display Bookings</a>
+        </div>
+
+        <div class="text-center"><br> &copy; TaxiApp. 2024 <br><br>
+            <span class="text-center" sec:authorize="isAuthenticated()"> User: <span class="text-center" sec:authentication="name"></span>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="text-center" th:href="@{/logout}">Logout</a></span>
+        </div>
+    </body>
+</html>
