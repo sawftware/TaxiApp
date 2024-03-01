@@ -15,8 +15,11 @@
             <div class="row">
                 <h1 class="text-center">Dashboard</h1>
                 <div sec:authorize="hasRole('USER')">
-                    <h1>Your Current Availability Status: <span th:text="${taxi != null && taxi.isAvailable} ? '&#x2705;' : '&#x274C' " /></h1>
-
+                    <br>
+                    <h1>Your Current Availability Status: </h1><h2> <span th:text="${taxi != null && taxi.isAvailable} ? '&#x2705; (Available)' : '&#x274C; (Booked)'" /> </h2>
+                    <br>
+                    <h1>Your Current Location:</h1><h2><span th:text="${taxi.getLocation()}" /> </h2>
+                    <br> <br>
                     <h1>Your Booking History</h1>
 
                     <div th:if="!${#lists.isEmpty(taxiBookings)}">
@@ -28,7 +31,9 @@
                                 <th scope="col" class="text-center">Booking Center</th>
                                 <th scope="col" class="text-center">Customer</th>
                                 <th scope="col" class="text-center">Created Date</th>
+                                <th scope="col" class="text-center">Pickup</th>
                                 <th scope="col" class="text-center">Assigned Date</th>
+                                <th scope="col" class="text-center">Dropoff</th>
                                 <th scope="col" class="text-center">Dropoff Date</th>
                                 <th sec:authorize="hasRole('USER')" scope="col" class="text-center">Arrived?</th>
                             </tr>
@@ -39,7 +44,9 @@
                                 <td th:text="${booking.getBookingCenter()}" />
                                 <td th:text="${booking.getCustomer()}" />
                                 <td th:text="${booking.getCreateDt()}" />
+                                <td th:text="${booking.getPickup()}" />
                                 <td th:text="${booking.getAssignedDt()}" />
+                                <td th:text="${booking.getDropoff()}" />
                                 <td th:text="${booking.dropoffDt != null} ? ${booking.getDropoffDt()} : 'Incomplete'" />
                                 <td>
                                     <input th:if="${booking.dropoffDt == null}" th:value="*{booking.getBookingId()}" type="hidden" name="bookingId" form="dropoffBookingForm" />

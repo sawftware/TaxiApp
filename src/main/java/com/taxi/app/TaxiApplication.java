@@ -1,21 +1,27 @@
 package com.taxi.app;
 
+import java.util.Set;
+import org.slf4j.Logger;
+import java.util.HashSet;
+import org.slf4j.LoggerFactory;
 import com.taxi.app.entity.security.Role;
 import com.taxi.app.entity.security.User;
-import com.taxi.app.repository.security.RoleRepository;
-import com.taxi.app.repository.security.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import com.taxi.app.repository.security.RoleRepository;
+import com.taxi.app.repository.security.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.Set;
-
+/**
+ * TaxiApplication
+ *
+ * @author alankavanagh
+ *
+ * Spring Boot Application entry point
+ */
 @SpringBootApplication
 public class TaxiApplication {
 
@@ -26,6 +32,13 @@ public class TaxiApplication {
 		logger.info("TaxiApp: Application started");
 	}
 
+	/**
+	 * ApplicationRunner
+	 *
+	 * @author alankavanagh
+	 *
+	 * Creates the default admin/admin account on application start
+	 */
 	@Component
 	public static class ApplicationRunner implements CommandLineRunner {
 

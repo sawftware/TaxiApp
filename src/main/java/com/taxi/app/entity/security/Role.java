@@ -18,6 +18,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
+/**
+ * Role Model/Entity
+ *
+ * @author alankavanagh
+ *
+ * Defines the Role entity used for Authorization to webpages/components
+ */
 @Getter
 @Setter
 @Builder

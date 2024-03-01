@@ -7,6 +7,13 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
+/**
+ * BookingRepository
+ *
+ * @author alankavanagh
+ *
+ * Booking Repository used for database management of the Booking entity
+ */
 @Repository
 public interface BookingRepository extends CrudRepository<Booking, Long> {
     List<Booking> findAllByTaxi(final Taxi taxi);

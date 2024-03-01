@@ -1,8 +1,15 @@
 package com.taxi.app.service;
 
-import com.taxi.app.entity.Booking;
 import com.taxi.app.entity.Taxi;
+import com.taxi.app.entity.Booking;
 
+/**
+ * BookingService
+ *
+ * @author alankavanagh
+ *
+ * Defines the BookingService interface
+ */
 public interface BookingService {
     Iterable<Booking> getBookings();
     Iterable<Booking> getBookings(final Taxi taxi);

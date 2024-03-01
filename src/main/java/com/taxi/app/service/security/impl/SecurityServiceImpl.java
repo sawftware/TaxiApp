@@ -11,6 +11,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
+/**
+ * SecurityServiceImpl
+ *
+ * @author alankavanagh
+ *
+ * Implementation of the SecurityService interface
+ */
 @Service
 public class SecurityServiceImpl implements SecurityService {
 

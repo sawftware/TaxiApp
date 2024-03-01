@@ -1,30 +1,30 @@
 package com.taxi.app.controller;
 
-import com.taxi.app.entity.Taxi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.security.Principal;
+import com.taxi.app.entity.Taxi;
 import com.taxi.app.entity.Booking;
 import org.springframework.ui.Model;
 import com.taxi.app.service.TaxiService;
 import com.taxi.app.entity.security.User;
-import org.springframework.http.MediaType;
-import org.springframework.http.HttpStatus;
 import com.taxi.app.service.BookingService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import com.taxi.app.service.security.UserService;
 import com.taxi.app.service.security.SecurityService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 
-import java.security.Principal;
-
+/**
+ * WebController
+ *
+ * @author alankavanagh
+ *
+ * WebController that defines the HTTP URL Endpoints for the application
+ */
 @Controller
 public class WebController {
     private static final Logger logger = LoggerFactory.getLogger(WebController.class);

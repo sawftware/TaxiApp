@@ -24,7 +24,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
-
+/**
+ * User Model/Entity
+ *
+ * @author alankavanagh
+ *
+ * Defines the User entity used for Authentication
+ */
 @Getter
 @Setter
 @Builder

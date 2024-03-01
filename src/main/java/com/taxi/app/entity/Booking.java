@@ -1,27 +1,34 @@
 package com.taxi.app.entity;
 
-import com.taxi.app.entity.utils.Location;
 import lombok.Data;
-import java.util.Date;
 import lombok.Builder;
+import java.util.Date;
 import lombok.AccessLevel;
-import javax.persistence.Id;
 import java.io.Serializable;
-import javax.persistence.OneToOne;
+import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import javax.persistence.Temporal;
+import javax.persistence.OneToOne;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
 import javax.persistence.CascadeType;
 import javax.persistence.TemporalType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import com.taxi.app.entity.utils.Location;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+/**
+ * Booking Model/Entity
+ *
+ * @author alankavanagh
+ *
+ * Defines the Booking entity used for storing the details of a booking
+ */
 @Data
 @Builder
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
@@ -41,6 +48,14 @@ public class Booking implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="booking_center_id")
     private BookingCenter bookingCenter;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pickup", referencedColumnName = "location_id")
+    private Location pickup;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "dropoff", referencedColumnName = "location_id")
+    private Location dropoff;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="taxi_id")

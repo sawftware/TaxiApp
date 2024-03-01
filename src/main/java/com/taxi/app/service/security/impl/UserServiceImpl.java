@@ -1,25 +1,32 @@
 package com.taxi.app.service.security.impl;
 
 import java.util.Set;
-
-import com.taxi.app.entity.BookingCenter;
-import com.taxi.app.entity.Taxi;
-import com.taxi.app.entity.utils.Location;
-import com.taxi.app.repository.BookingCenterRepository;
-import com.taxi.app.repository.TaxiRepository;
-import com.taxi.app.repository.utils.LocationRepository;
 import org.slf4j.Logger;
 import java.util.HashSet;
 import org.slf4j.LoggerFactory;
+import com.taxi.app.entity.Taxi;
+import com.taxi.app.entity.BookingCenter;
 import com.taxi.app.entity.security.Role;
 import com.taxi.app.entity.security.User;
+import com.javadocmd.simplelatlng.LatLng;
+import com.taxi.app.entity.utils.Location;
+import com.taxi.app.repository.TaxiRepository;
 import org.springframework.stereotype.Service;
 import com.taxi.app.service.security.UserService;
+import com.taxi.app.repository.BookingCenterRepository;
 import com.taxi.app.repository.security.RoleRepository;
 import com.taxi.app.repository.security.UserRepository;
+import com.taxi.app.repository.utils.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+/**
+ * UserServiceImpl
+ *
+ * @author alankavanagh
+ *
+ * Implementation of the UserService interface
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -47,7 +54,6 @@ public class UserServiceImpl implements UserService {
     public void save(final User user) {
         logger.debug("UserServiceImpl: Executing save()");
 
-
         logger.debug("UserServiceImpl: Saving user: " + user);
         final Set<Role> roles = new HashSet<>();
         roles.add(roleRepository.findOneByName("ROLE_USER"));
@@ -55,8 +61,9 @@ public class UserServiceImpl implements UserService {
         final BookingCenter bookingCenter = bookingCenterRepository.findById(1L).get();
 
         final Location location = Location.builder()
-                .latitude(0)
-                .longitude(0).build();
+                .location("Home")
+                .latitude(LatLng.random().getLatitude())
+                .longitude(LatLng.random().getLongitude()).build();
         locationRepository.save(location);
 
         final Taxi taxi = Taxi.builder()

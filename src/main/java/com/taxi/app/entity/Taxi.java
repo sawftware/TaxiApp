@@ -1,9 +1,6 @@
 package com.taxi.app.entity;
 
 import lombok.Data;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import lombok.Builder;
 import java.util.HashSet;
@@ -25,6 +22,13 @@ import javax.persistence.GenerationType;
 import com.taxi.app.entity.security.User;
 import com.taxi.app.entity.utils.Location;
 
+/**
+ * Taxi Model/Entity
+ *
+ * @author alankavanagh
+ *
+ * Defines the Taxi entity used for storing the details of a taxi
+ */
 @Data
 @Builder
 @AllArgsConstructor(access = AccessLevel.PUBLIC)

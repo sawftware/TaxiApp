@@ -16,6 +16,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+/**
+ * UserDetailsServiceImpl
+ *
+ * @author alankavanagh
+ *
+ * Implementation of the UserDetailsService interface
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

@@ -25,7 +25,9 @@
                                 <th scope="col" class="text-center">Taxi ID</th>
                                 <th scope="col" class="text-center">Taxi Registration</th>
                                 <th scope="col" class="text-center">Created Date</th>
+                                <th scope="col" class="text-center">Pickup</th>
                                 <th scope="col" class="text-center">Assigned Date</th>
+                                <th scope="col" class="text-center">Dropoff</th>
                                 <th scope="col" class="text-center">Dropoff Date</th>
                                 <th sec:authorize="hasRole('USER')" scope="col" class="text-center">Assign?</th>
                             </tr>
@@ -38,7 +40,9 @@
                                 <td th:text="${booking.taxi != null} ? ${booking.getTaxi().getTaxiId()} : 'Unassigned'" />
                                 <td th:text="${booking.taxi != null} ? ${booking.getTaxi().getRegistration()} : 'Unassigned'" />
                                 <td th:text="${booking.getCreateDt()}" />
+                                <td th:text="${booking.getPickup()}" />
                                 <td th:text="${booking.assignedDt != null} ? ${booking.getAssignedDt()} : 'Unassigned'" />
+                                <td th:text="${booking.getDropoff()}" />
                                 <td th:text="${booking.dropoffDt != null} ? ${booking.getDropoffDt()} : 'Incomplete'" />
                                 <td sec:authorize="hasRole('USER')">
                                     <input th:if="${booking.assignedDt == null && taxi.getIsAvailable()}" th:value="*{booking.getBookingId()}" type="hidden" name="bookingId" form="assignBookingForm" />

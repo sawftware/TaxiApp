@@ -1,5 +1,6 @@
 package com.taxi.app.service.impl;
 
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.taxi.app.entity.Taxi;
@@ -8,8 +9,13 @@ import com.taxi.app.repository.TaxiRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Set;
-
+/**
+ * TaxiServiceImpl
+ *
+ * @author alankavanagh
+ *
+ * Implementation of the TaxiService interface
+ */
 @Service
 public class TaxiServiceImpl implements TaxiService {
     private static final Logger logger = LoggerFactory.getLogger(TaxiServiceImpl.class);

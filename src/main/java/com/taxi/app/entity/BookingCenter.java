@@ -17,6 +17,13 @@ import javax.persistence.GeneratedValue;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.GenericGenerator;
 
+/**
+ * BookingCenter Model/Entity
+ *
+ * @author alankavanagh
+ *
+ * Defines the BookingCenter entity used for storing the details of a booking center
+ */
 @Data
 @Builder
 @AllArgsConstructor(access = AccessLevel.PUBLIC)

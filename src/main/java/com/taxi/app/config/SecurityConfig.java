@@ -15,6 +15,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 
+/**
+ * SecurityConfig
+ *
+ * @author alankavanagh
+ *
+ * Security Configuration used for Spring Boot Security
+ */
 @Configuration
 @EnableWebSecurity(debug=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -66,11 +73,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         logger.debug("SecurityConfig: Executing configure()");
 
+        /*
+         * Resources: /css, /images, /bootstrap - permit all
+         * Webpages: /login, /logout, /register - permit all
+         * Webpages: /, /landing, /displayBookings, /displayTaxis, /insertBooking - require authentication
+         * Webpages: /swagger-ui.html, /h2-console - require authentication
+         */
         http
                 .authorizeRequests()
                 .antMatchers("/register").permitAll()
                 .antMatchers( "/css/**", "/images/**").permitAll()
-                .antMatchers("/", "/landing", "displayBookings", "displayTaxis", "insertBooking", "insertTaxi").authenticated()
+                .antMatchers("/", "/landing", "displayBookings", "displayTaxis", "insertBooking").authenticated()
                 .and().authorizeRequests().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**","/swagger-resources/configuration/ui","/swagger-ui.html").permitAll().anyRequest().authenticated()
                 .and().authorizeRequests().antMatchers("/h2-console/**").permitAll().anyRequest().authenticated()
                 .and().csrf().ignoringAntMatchers("/h2-console/**")

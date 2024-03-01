@@ -12,12 +12,18 @@ import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * SwaggerConfig
+ *
+ * @author alankavanagh
+ *
+ * Swagger Configuration used to generate the Swagger API Documentation
+ */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(SwaggerConfig.class);
-
 
     @Bean
     public static Docket api() {

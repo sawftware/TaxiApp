@@ -16,6 +16,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
+/**
+ * Location Model/Entity
+ *
+ * @author alankavanagh
+ *
+ * Defines the Location entity used for storing a location name, latitude and longitude
+ */
 @Data
 @Builder
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
@@ -29,18 +36,18 @@ public class Location implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long locationId;
 
+    @Column(name="location")
+    private String location;
+
     @Column(name="latitude")
     private double latitude;
 
     @Column(name="longitude")
     private double longitude;
 
-    @OneToOne(mappedBy = "location")
-    private Taxi taxi;
-
     @Override
     public String toString() {
-        return "Lat,Long: " + getLatitude() + "," + getLongitude();
+        return getLocation() + " (Lat,Lng: " + getLatitude() + ", " + getLongitude() + ")";
     }
 
     @Override
