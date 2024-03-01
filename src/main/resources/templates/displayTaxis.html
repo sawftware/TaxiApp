@@ -27,25 +27,23 @@
                         </thead>
                         <tbody>
                             <tr th:each="taxi : ${taxis}">
-                                <td th:text="${taxi.taxiId}" />
-                                <td th:text="${taxi.registration}" />
-                                <td th:text="${taxi.bookingCenter.name}" />
-                                <td th:text="${taxi.isAvailable} ? '&#x2705;' : '&#x274C' " />
-                                <td th:text="${taxi.location}" />
+                                <td th:text="${taxi.getTaxiId()}" />
+                                <td th:text="${taxi.getRegistration()}" />
+                                <td th:text="${taxi.getBookingCenter().getName()}" />
+                                <td th:text="${taxi.getIsAvailable()} ? '&#x2705;' : '&#x274C' " />
+                                <td th:text="${taxi.getLocation()}" />
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div th:if="${#lists.isEmpty(taxis)}">
-                    <h2>No taxis have been registered</h2>
+                    <h2>No taxis have been registered yet</h2>
                 </div>
             </div>
         </div>
 
         <div class="text-center"><br>
             <a href="/">Dashboard</a>
-            <span sec:authorize="hasRole('ADMIN')">&nbsp; |&nbsp;&nbsp;</span>
-            <a sec:authorize="hasRole('ADMIN')" href="/insertTaxi">Insert Taxi</a>
             <span sec:authorize="hasRole('ADMIN')">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
             <a sec:authorize="hasRole('ADMIN')" href="/displayTaxis">Display Taxis</a>
             <span sec:authorize="hasRole('ADMIN')">&nbsp;&nbsp;|&nbsp;&nbsp;</span>

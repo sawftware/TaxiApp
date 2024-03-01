@@ -13,29 +13,6 @@
 		<link rel="stylesheet" href="/css/bootstrap.min.css" />
 	</div>
 
-	<div th:fragment="taxi-validation">
-		<script>
-			$(document).ready(function() {
-				$('#insertTaxiForm').validate({
-					rules : {
-						registration : {
-							required : true,
-							minlength: 10,
-							maxlength: 12
-						},
-					},
-					messages : {
-						registration : {
-							required : " * Registration field is required",
-							minlength: " * Registration must contain at least 10 characters",
-							maxlength: " * Registration must only contain 12 characters"
-						}
-					}
-				});
-			});
-		</script>
-	</div>
-
 	<div th:fragment="booking-validation">
 		<script>
 			$(document).ready(function() {
@@ -52,6 +29,60 @@
 							required : " * Customer field is required",
 							minlength: " * Customer must contain at least 2 characters",
 							maxlength: " * Customer must only contain 25 characters"
+						}
+					}
+				});
+			});
+		</script>
+	</div>
+
+	<div th:fragment="register-validation">
+		<script>
+			$(document).ready(function() {
+				$('#userRegisterForm').validate({
+					rules : {
+						username : {
+							required : true,
+							remote: {
+								type: 'get',
+								url: 'isUsernameAvailable',
+								data: {
+									'username': function () { return $('#username').val(); }
+								},
+								dataType: 'json'
+							},
+							minlength: 5,
+							maxlength: 10
+						},
+						password : {
+							required : true,
+							minlength: 5,
+							maxlength: 10
+						},
+						passwordConfirm : {
+							required : true,
+							minlength: 5,
+							maxlength: 10,
+							equalTo: "#password"
+						},
+					},
+					messages : {
+						username : {
+							required : " * Username field is required",
+							remote: " * Username already exists",
+							minlength: " * Username must contain at least 5 characters",
+							maxlength: " * Username must only contain 10 characters"
+						},
+						password : {
+							required : " * Password field is required",
+							minlength: " * Password must contain at least 5 characters",
+							maxlength: " * Password must only contain 10 characters"
+						},
+						passwordConfirm : {
+							required : " * Confirm password field is required",
+							minlength: " * Confirm password must contain at least 5 characters",
+							maxlength: " * Confirm password must only contain 10 characters",
+							equalTo: " * Passwords must match"
 						}
 					}
 				});

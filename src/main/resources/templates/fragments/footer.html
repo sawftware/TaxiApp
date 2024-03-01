@@ -2,8 +2,6 @@
 <body>
 	<div class="text-center"><br>
 		<a href="/">Dashboard</a>
-		<span sec:authorize="hasRole('ADMIN')">&nbsp; |&nbsp;&nbsp;</span>
-		<a sec:authorize="hasRole('ADMIN')" href="/insertTaxi">Insert Taxi</a>
 		<span sec:authorize="hasRole('ADMIN')">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
 		<a sec:authorize="hasRole('ADMIN')" href="/displayTaxis">Display Taxis</a>
 		<span sec:authorize="hasRole('ADMIN')">&nbsp;&nbsp;|&nbsp;&nbsp;</span>

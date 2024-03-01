@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     </head>
 
-    <body>
+    <body class="text-center">
         <div th:insert="~{fragments/js :: jquery}"></div>
         <div th:insert="~{fragments/js :: bootstrap}"></div>
         <div th:insert="~{fragments/navbar :: navbar}"></div>
@@ -15,20 +15,80 @@
             <div class="row">
                 <h1 class="text-center">Dashboard</h1>
                 <div sec:authorize="hasRole('USER')">
-                    Text visible to user.
+                    <h1>Your Current Availability Status: <span th:text="${taxi != null && taxi.isAvailable} ? '&#x2705;' : '&#x274C' " /></h1>
+
+                    <h1>Your Booking History</h1>
+
+                    <div th:if="!${#lists.isEmpty(taxiBookings)}">
+                        <form th:action="@{/dropoffBooking}" th:object="${bookingId}" method="post" id="dropoffBookingForm"></form>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="text-center">Booking ID</th>
+                                <th scope="col" class="text-center">Booking Center</th>
+                                <th scope="col" class="text-center">Customer</th>
+                                <th scope="col" class="text-center">Created Date</th>
+                                <th scope="col" class="text-center">Assigned Date</th>
+                                <th scope="col" class="text-center">Dropoff Date</th>
+                                <th sec:authorize="hasRole('USER')" scope="col" class="text-center">Arrived?</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="booking : ${taxiBookings}">
+                                <td th:text="${booking.getBookingId()}" />
+                                <td th:text="${booking.getBookingCenter()}" />
+                                <td th:text="${booking.getCustomer()}" />
+                                <td th:text="${booking.getCreateDt()}" />
+                                <td th:text="${booking.getAssignedDt()}" />
+                                <td th:text="${booking.dropoffDt != null} ? ${booking.getDropoffDt()} : 'Incomplete'" />
+                                <td>
+                                    <input th:if="${booking.dropoffDt == null}" th:value="*{booking.getBookingId()}" type="hidden" name="bookingId" form="dropoffBookingForm" />
+                                    <input th:if="${booking.dropoffDt == null}" type="submit" value="Dropoff" form="dropoffBookingForm" />
+                                    <input th:if="${booking.dropoffDt != null}" disabled type="submit" value="Dropoff" form="dropoffBookingForm" />
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div th:if="${#lists.isEmpty(taxiBookings)}">
+                        <h2>You have no bookings assigned yet</h2>
+                    </div>
                 </div>
 
                 <div sec:authorize="hasRole('ADMIN')">
-                    Text visible to admin.
-                </div>
+                    <h1>Bookings Statistics</h1>
 
+                    <div th:if="!${#lists.isEmpty(taxis)}">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="text-center">Booking Center</th>
+                                <th scope="col" class="text-center">Taxi ID</th>
+                                <th scope="col" class="text-center">Taxi Registration</th>
+                                <th scope="col" class="text-center">Total Bookings</th>
+                                <th scope="col" class="text-center">Bookings</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="taxi : ${taxis}">
+                                <td th:text="${taxi.getBookingCenter()}" />
+                                <td th:text="${taxi.getTaxiId()}" />
+                                <td th:text="${taxi.getRegistration()}" />
+                                <td th:text="${taxi.getBookings().size()}" />
+                                <td th:text="${taxi.getBookings()}" />
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div th:if="${#lists.isEmpty(taxis)}">
+                        <h2>No bookings have been assigned yet</h2>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="text-center"><br>
             <a href="/">Dashboard</a>
-            <span sec:authorize="hasRole('ADMIN')">&nbsp; |&nbsp;&nbsp;</span>
-            <a sec:authorize="hasRole('ADMIN')" href="/insertTaxi">Insert Taxi</a>
             <span sec:authorize="hasRole('ADMIN')">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
             <a sec:authorize="hasRole('ADMIN')" href="/displayTaxis">Display Taxis</a>
             <span sec:authorize="hasRole('ADMIN')">&nbsp;&nbsp;|&nbsp;&nbsp;</span>

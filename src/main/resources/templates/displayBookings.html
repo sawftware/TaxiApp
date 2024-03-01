@@ -15,6 +15,7 @@
                 <h1>List of Bookings</h1>
 
                 <div th:if="!${#lists.isEmpty(bookings)}">
+                    <form th:action="@{/assignBooking}" th:object="${bookingId}" method="post" id="assignBookingForm"></form>
                     <table class="table">
                         <thead>
                             <tr>
@@ -23,35 +24,39 @@
                                 <th scope="col" class="text-center">Customer</th>
                                 <th scope="col" class="text-center">Taxi ID</th>
                                 <th scope="col" class="text-center">Taxi Registration</th>
-                                <th scope="col" class="text-center">Created</th>
-                                <th scope="col" class="text-center">Assigned</th>
-                                <th scope="col" class="text-center">Assign?</th>
+                                <th scope="col" class="text-center">Created Date</th>
+                                <th scope="col" class="text-center">Assigned Date</th>
+                                <th scope="col" class="text-center">Dropoff Date</th>
+                                <th sec:authorize="hasRole('USER')" scope="col" class="text-center">Assign?</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="booking : ${bookings}">
-                                <td th:text="${booking.bookingId}" />
-                                <td th:text="${booking.bookingCenter}" />
-                                <td th:text="${booking.customer}" />
-                                <td th:text="${booking.taxi} ? ${booking.taxi.taxiId} : 'Unassigned'" />
-                                <td th:text="${booking.taxi} ? ${booking.taxi.registration} : 'Unassigned'" />
-                                <td th:text="${booking.createDt}" />
-                                <td th:text="${booking.assignedDt} ? ${booking.assignedDt} : 'Unassigned'" />
-                                <td th:text="${booking.assignedDt} ? ${booking.assignedDt} : 'Unassigned'" />
+                                <td th:text="${booking.getBookingId()}" />
+                                <td th:text="${booking.getBookingCenter()}" />
+                                <td th:text="${booking.getCustomer()}" />
+                                <td th:text="${booking.taxi != null} ? ${booking.getTaxi().getTaxiId()} : 'Unassigned'" />
+                                <td th:text="${booking.taxi != null} ? ${booking.getTaxi().getRegistration()} : 'Unassigned'" />
+                                <td th:text="${booking.getCreateDt()}" />
+                                <td th:text="${booking.assignedDt != null} ? ${booking.getAssignedDt()} : 'Unassigned'" />
+                                <td th:text="${booking.dropoffDt != null} ? ${booking.getDropoffDt()} : 'Incomplete'" />
+                                <td sec:authorize="hasRole('USER')">
+                                    <input th:if="${booking.assignedDt == null && taxi.getIsAvailable()}" th:value="*{booking.getBookingId()}" type="hidden" name="bookingId" form="assignBookingForm" />
+                                    <input th:if="${booking.assignedDt == null && taxi.getIsAvailable()}" type="submit" value="Assign" form="assignBookingForm" />
+                                    <input th:if="${booking.assignedDt != null || !taxi.getIsAvailable()}" disabled type="submit" value="Assign" form="assignBookingForm" />
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div th:if="${#lists.isEmpty(bookings)}">
-                    <h2>No bookings have been created</h2>
+                    <h2>No bookings have been created yet</h2>
                 </div>
             </div>
         </div>
 
         <div class="text-center"><br>
             <a href="/">Dashboard</a>
-            <span sec:authorize="hasRole('ADMIN')">&nbsp; |&nbsp;&nbsp;</span>
-            <a sec:authorize="hasRole('ADMIN')" href="/insertTaxi">Insert Taxi</a>
             <span sec:authorize="hasRole('ADMIN')">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
             <a sec:authorize="hasRole('ADMIN')" href="/displayTaxis">Display Taxis</a>
             <span sec:authorize="hasRole('ADMIN')">&nbsp;&nbsp;|&nbsp;&nbsp;</span>

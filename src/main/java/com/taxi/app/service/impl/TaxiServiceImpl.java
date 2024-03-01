@@ -4,13 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.taxi.app.entity.Taxi;
 import com.taxi.app.service.TaxiService;
-import com.taxi.app.entity.BookingCenter;
-import com.taxi.app.entity.utils.Location;
-import org.springframework.stereotype.Service;
 import com.taxi.app.repository.TaxiRepository;
-import com.taxi.app.repository.utils.LocationRepository;
-import com.taxi.app.repository.BookingCenterRepository;
+import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Set;
 
 @Service
 public class TaxiServiceImpl implements TaxiService {
@@ -19,32 +17,24 @@ public class TaxiServiceImpl implements TaxiService {
     @Autowired
     private TaxiRepository taxiRepository;
 
-    @Autowired
-    private BookingCenterRepository bookingCenterRepository;
-
-    @Autowired
-    private LocationRepository locationRepository;
-
     @Override
     public Iterable<Taxi> getTaxis() {
+        logger.debug("TaxiServiceImpl: Executing getTaxis()");
+
         return taxiRepository.findAll();
     }
 
     @Override
-    public void insertTaxi(final Taxi taxi) {
-        final Location newLocation = Location.builder()
-                .latitude(0)
-                .longitude(0).build();
-        locationRepository.save(newLocation);
+    public Set<Taxi> getTaxisOrderedByBookings() {
+        logger.debug("TaxiServiceImpl: Executing getTaxisOrderedByBookings()");
 
-        final BookingCenter bookingCenter = bookingCenterRepository.findById(1L).get();
+        return taxiRepository.findByOrderByBookingsDesc();
+    }
 
-        final Taxi newTaxi = Taxi.builder()
-                .registration(taxi.getRegistration())
-                .bookingCenter(bookingCenter)
-                .location(newLocation)
-                .isAvailable(true).build();
+    @Override
+    public Taxi findOneByRegistration(final String registration) {
+        logger.debug("TaxiServiceImpl: Executing findOneByRegistration()");
 
-        taxiRepository.save(newTaxi);
+        return taxiRepository.findByRegistration(registration);
     }
 }

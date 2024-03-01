@@ -1,10 +1,14 @@
 package com.taxi.app.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
+import com.taxi.app.config.handlers.LoginSuccessHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,25 +19,61 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 @EnableWebSecurity(debug=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private LoginSuccessHandler authenticationSuccessHandler;
+    private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
+
+    private final LoginSuccessHandler authenticationSuccessHandler;
 
     @Autowired
-    public SecurityConfig(LoginSuccessHandler authenticationSuccessHandler) {
+    private UserDetailsService userDetailsService;
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        logger.debug("SecurityConfig: Executing bCryptPasswordEncoder()");
+
+        return new BCryptPasswordEncoder();
+    }
+
+    @Autowired
+    public SecurityConfig(final LoginSuccessHandler authenticationSuccessHandler) {
+        logger.debug("SecurityConfig: Constructing SecurityConfig");
+
         this.authenticationSuccessHandler = authenticationSuccessHandler;
     }
 
+    @Autowired
+    public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
+        logger.debug("SecurityConfig: Executing configureGlobal()");
+
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+    }
+
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        logger.debug("SecurityConfig: Executing authenticationManagerBean()");
+
+        return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public SpringSecurityDialect securityDialect() {
+        logger.debug("SecurityConfig: Executing securityDialect()");
+
+        return new SpringSecurityDialect();
     }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
+        logger.debug("SecurityConfig: Executing configure()");
+
         http
                 .authorizeRequests()
                 .antMatchers("/register").permitAll()
                 .antMatchers( "/css/**", "/images/**").permitAll()
                 .antMatchers("/", "/landing", "displayBookings", "displayTaxis", "insertBooking", "insertTaxi").authenticated()
+                .and().authorizeRequests().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**","/swagger-resources/configuration/ui","/swagger-ui.html").permitAll().anyRequest().authenticated()
+                .and().authorizeRequests().antMatchers("/h2-console/**").permitAll().anyRequest().authenticated()
+                .and().csrf().ignoringAntMatchers("/h2-console/**")
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -43,19 +83,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .permitAll()
                 .and().csrf().disable();
-    }
-
-    @Autowired
-    public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("user").password("userpass").roles("USER")
-                .and()
-                .withUser("admin").password("adminpass").roles("ADMIN");
-    }
-
-    @Bean
-    public SpringSecurityDialect securityDialect() {
-        return new SpringSecurityDialect();
     }
 }

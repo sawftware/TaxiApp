@@ -25,8 +25,7 @@ spring:
 logging:
   level:
     com.taxi.app: DEBUG
-    org.springframework.web: DEBUG
-    org.springframework.boot.autoconfigure.security: DEBUG
+    org.springframework.web: ERROR
 
 springdoc:
   api-docs:

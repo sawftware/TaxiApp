@@ -1,23 +1,36 @@
 package com.taxi.app.controller;
 
+import com.taxi.app.entity.Taxi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.taxi.app.entity.Taxi;
 import com.taxi.app.entity.Booking;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import com.taxi.app.service.TaxiService;
+import com.taxi.app.entity.security.User;
+import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
 import com.taxi.app.service.BookingService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import com.taxi.app.service.security.UserService;
+import com.taxi.app.service.security.SecurityService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
+
+import java.security.Principal;
 
 @Controller
 public class WebController {
     private static final Logger logger = LoggerFactory.getLogger(WebController.class);
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private TaxiService taxiService;
@@ -25,54 +38,99 @@ public class WebController {
     @Autowired
     private BookingService bookingService;
 
+    @Autowired
+    private SecurityService securityService;
+
     @GetMapping(value = {"/login"})
     public String getLogin() {
         return "login";
     }
 
+    @PostMapping("/login")
+    public String postLogin(final @ModelAttribute("userRegisterForm") User user) {
+        logger.debug("WebController: POST /login");
+
+        securityService.autologin(user.getUsername(), user.getPassword());
+        return "redirect:/";
+    }
+
     @GetMapping(value = {"/register"})
-    public String getRegister() {
+    public String getRegister(final Model model) {
+        logger.debug("WebController: GET /register");
+
+        model.addAttribute("user", new User());
         return "register";
+    }
+
+    @PostMapping("/register")
+    public String postRegister(final @ModelAttribute("userForm") User user) {
+        logger.debug("WebController: POST /register");
+
+        userService.save(user);
+        securityService.autologin(user.getUsername(), user.getPassword());
+        return "redirect:/";
     }
 
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/")
-    public String displayIndexPage() {
+    public String displayIndex(final Model model, final Principal principal) {
+        logger.debug("WebController: GET /");
+
+        final Taxi usersTaxi = taxiService.findOneByRegistration(principal.getName());
+        model.addAttribute("taxi", usersTaxi);
+        model.addAttribute("taxiBookings", bookingService.getBookings(usersTaxi));
+
+        model.addAttribute("bookings", bookingService.getBookings());
+        model.addAttribute("taxis", taxiService.getTaxisOrderedByBookings());
         return "landing";
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/displayTaxis")
-    public String displayTaxisPage(final Model model) {
+    public String displayTaxis(final Model model) {
+        logger.debug("WebController: GET /displayTaxis");
+
         model.addAttribute("taxis", taxiService.getTaxis());
         return "displayTaxis";
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/insertTaxi")
-    public String insertTaxiPage(final Model model) {
-        model.addAttribute("taxi", new Taxi());
-
-        return "insertTaxi";
-    }
-
-    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/insertTaxi")
-    public String insertTaxi(final @ModelAttribute Taxi taxi) {
-        taxiService.insertTaxi(taxi);
-        return "landing";
-    }
-
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/displayBookings")
-    public String displayBookingsPage(final Model model) {
+    public String displayBookings(final Model model, final Principal principal) {
+        logger.debug("WebController: GET /displayBookings");
+
         model.addAttribute("bookings", bookingService.getBookings());
+        model.addAttribute("taxi", taxiService.findOneByRegistration(principal.getName()));
         return "displayBookings";
+    }
+
+    @PreAuthorize("hasAnyRole('USER')")
+    @PostMapping("/assignBooking")
+    public String assignBooking(final @ModelAttribute("bookingId") long bookingId, final Principal principal) {
+        logger.debug("WebController: POST /assignBooking");
+
+        bookingService.assignBooking(
+                taxiService.findOneByRegistration(principal.getName()).getTaxiId(), bookingId);
+
+        return "redirect:/";
+    }
+
+    @PreAuthorize("hasAnyRole('USER')")
+    @PostMapping("/dropoffBooking")
+    public String dropoffBooking(final @ModelAttribute("bookingId") long bookingId, final Principal principal) {
+        logger.debug("WebController: POST /dropoffBooking");
+
+        bookingService.dropoffBooking(
+                taxiService.findOneByRegistration(principal.getName()).getTaxiId(), bookingId);
+
+        return "redirect:/";
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/insertBooking")
-    public String insertBookingPage(final Model model) {
+    public String insertBooking(final Model model) {
+        logger.debug("WebController: GET /insertBooking");
+
         model.addAttribute("booking", new Booking());
         return "insertBooking";
     }
@@ -80,8 +138,9 @@ public class WebController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/insertBooking")
     public String insertBooking(final @ModelAttribute Booking booking) {
-        bookingService.insertBooking(booking);
-        return "landing";
-    }
+        logger.debug("WebController: POST /insertBooking");
 
+        bookingService.insertBooking(booking);
+        return "redirect:/displayBookings";
+    }
 }

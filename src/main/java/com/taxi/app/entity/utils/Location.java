@@ -1,5 +1,6 @@
 package com.taxi.app.entity.utils;
 
+import com.taxi.app.entity.Booking;
 import lombok.Data;
 import lombok.Builder;
 import lombok.AccessLevel;
@@ -13,8 +14,7 @@ import javax.persistence.Entity;
 import lombok.AllArgsConstructor;
 import javax.persistence.OneToOne;
 import javax.persistence.GeneratedValue;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.GenericGenerator;
+import javax.persistence.GenerationType;
 
 @Data
 @Builder
@@ -26,16 +26,7 @@ public class Location implements Serializable {
 
     @Id
     @Column(name = "location_id")
-    @GeneratedValue(generator = "location-sg")
-    @GenericGenerator(
-            name = "location-sg",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-            parameters = {
-                    @Parameter(name = "sequence_name", value = "location_sequence"),
-                    @Parameter(name = "initial_value", value = "3"),
-                    @Parameter(name = "increment_size", value = "1")
-            }
-    )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long locationId;
 
     @Column(name="latitude")
@@ -47,8 +38,13 @@ public class Location implements Serializable {
     @OneToOne(mappedBy = "location")
     private Taxi taxi;
 
+    @Override
     public String toString() {
-        return "Lat,Long: " + getLatitude() + ", " + getLongitude();
+        return "Lat,Long: " + getLatitude() + "," + getLongitude();
     }
 
+    @Override
+    public int hashCode() {
+        return (int) locationId + (int) latitude + (int) longitude;
+    }
 }

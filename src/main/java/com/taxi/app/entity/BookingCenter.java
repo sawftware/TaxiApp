@@ -48,7 +48,13 @@ public class BookingCenter implements Serializable {
     @OneToMany(mappedBy="bookingCenter")
     private Set<Booking> bookings = new HashSet<>();
 
+    @Override
     public String toString() {
         return getName();
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) bookingCenterId * name.hashCode();
     }
 }
