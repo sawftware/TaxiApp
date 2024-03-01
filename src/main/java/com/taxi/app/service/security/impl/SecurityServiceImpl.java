@@ -30,22 +30,6 @@ public class SecurityServiceImpl implements SecurityService {
     private UserDetailsService userDetailsService;
 
     @Override
-    public String findLoggedInUsername() {
-        logger.debug("SecurityServiceImpl: Executing findLoggedInUsername()");
-
-
-        logger.debug("SecurityServiceImpl: Finding logged in username");
-        final String username = SecurityContextHolder.getContext().getAuthentication().getName();
-
-        if (username != null) {
-            logger.debug("SecurityServiceImpl: Username " + username + " is logged in");
-            return username;
-        }
-
-        return null;
-    }
-
-    @Override
     public void autologin(final String username, final String password) {
         logger.debug("SecurityServiceImpl: Executing autologin()");
 
