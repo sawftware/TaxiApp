@@ -78,7 +78,6 @@ public class WebController {
         final Taxi usersTaxi = taxiService.findOneByRegistration(principal.getName());
         model.addAttribute("taxi", usersTaxi);
         model.addAttribute("taxiBookings", bookingService.getBookings(usersTaxi));
-
         model.addAttribute("bookings", bookingService.getBookings());
         model.addAttribute("taxis", taxiService.getTaxisOrderedByBookings());
         return "landing";
