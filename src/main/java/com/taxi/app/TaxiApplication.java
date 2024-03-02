@@ -29,7 +29,6 @@ public class TaxiApplication {
 
 	public static void main(final String[] args) {
 		SpringApplication.run(TaxiApplication.class, args);
-		logger.info("TaxiApp: Application started");
 	}
 
 	/**

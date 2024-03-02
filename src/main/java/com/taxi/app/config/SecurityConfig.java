@@ -23,7 +23,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
  * Security Configuration used for Spring Boot Security
  */
 @Configuration
-@EnableWebSecurity(debug=true)
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);

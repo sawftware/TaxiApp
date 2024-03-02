@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
     public void save(final User user) {
         logger.debug("UserServiceImpl: Executing save()");
 
-        logger.debug("UserServiceImpl: Saving user: " + user);
+        logger.info("UserServiceImpl: Persisting user: " + user);
         final Set<Role> roles = new HashSet<>();
         roles.add(roleRepository.findOneByName("ROLE_USER"));
 
@@ -80,5 +80,6 @@ public class UserServiceImpl implements UserService {
                 .taxi(taxi)
                 .roles(new HashSet<>(roles)).build();
         userRepository.save(newUser);
+        logger.info("UserServiceImpl: User persisted: " + newUser);
     }
 }

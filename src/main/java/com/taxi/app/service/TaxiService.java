@@ -13,7 +13,6 @@ import com.taxi.app.entity.Taxi;
 public interface TaxiService {
     Iterable<Taxi> getTaxis();
     Set<Taxi> getTaxisOrderedByBookings();
-
     Taxi findOneByRegistration(final String registration);
 
 }

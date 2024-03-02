@@ -33,7 +33,7 @@ public class SecurityServiceImpl implements SecurityService {
     public void autologin(final String username, final String password) {
         logger.debug("SecurityServiceImpl: Executing autologin()");
 
-        logger.debug("SecurityServiceImpl: Attempting to auto-login user: " + username);
+        logger.info("SecurityServiceImpl: Attempting to auto-login user: " + username);
         final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         final UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
 
@@ -41,7 +41,7 @@ public class SecurityServiceImpl implements SecurityService {
 
         if (usernamePasswordAuthenticationToken.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-            logger.debug("SecurityServiceImpl: Auto-login " + username + " successful!");
+            logger.info("SecurityServiceImpl: Auto-login " + username + " successful!");
         }
     }
 }

@@ -79,8 +79,9 @@ public class BookingServiceImpl implements BookingService {
                 .dropoff(dropoff)
                 .createDt(new Date()).build();
 
-        logger.debug("BookingServiceImpl: Booking created, persisting");
+        logger.info("BookingServiceImpl: Booking created, persisting");
         bookingRepository.save(newBooking);
+        logger.info("BookingServiceImpl: Booking persisted");
     }
 
     @Override
@@ -95,13 +96,15 @@ public class BookingServiceImpl implements BookingService {
         booking.setTaxi(taxi);
         booking.setAssignedDt(new Date());
 
-        logger.debug("BookingServiceImpl: Booking assigned, persisting");
+        logger.info("BookingServiceImpl: Booking assigned, persisting");
         bookingRepository.save(booking);
+        logger.info("BookingServiceImpl: Booking persisted");
 
-        logger.debug("BookingServiceImpl: Setting taxi status to booked, persisting");
+        logger.info("BookingServiceImpl: Setting taxi status to booked, persisting");
         taxi.setIsAvailable(false);
         taxi.setLocation(booking.getPickup());
         taxiRepository.save(taxi);
+        logger.info("BookingServiceImpl: Taxi status persisted");
     }
 
     @Override
@@ -115,12 +118,14 @@ public class BookingServiceImpl implements BookingService {
         logger.debug("BookingServiceImpl: Booking found: " + booking);
         booking.setDropoffDt(new Date());
 
-        logger.debug("BookingServiceImpl: Booking dropoff complete, persisting");
+        logger.info("BookingServiceImpl: Booking dropoff complete, persisting");
         bookingRepository.save(booking);
+        logger.info("BookingServiceImpl: Booking persisted");
 
-        logger.debug("BookingServiceImpl: Setting taxi status to available, persisting");
+        logger.info("BookingServiceImpl: Setting taxi status to available, persisting");
         taxi.setIsAvailable(true);
         taxi.setLocation(booking.getDropoff());
         taxiRepository.save(taxi);
+        logger.info("BookingServiceImpl: Taxi status persisted");
     }
 }

@@ -13,6 +13,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import lombok.AllArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.GeneratedValue;
@@ -36,7 +39,16 @@ public class Role implements Serializable {
 
     @Id
     @Column(name="role_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "role-sg")
+    @GenericGenerator(
+            name = "role-sg",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @Parameter(name = "sequence_name", value = "role_sequence"),
+                    @Parameter(name = "initial_value", value = "3"),
+                    @Parameter(name = "increment_size", value = "1")
+            }
+    )
     private long roleId;
 
     @Column(name="name")

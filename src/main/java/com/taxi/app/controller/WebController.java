@@ -71,7 +71,6 @@ public class WebController {
         return "redirect:/";
     }
 
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/")
     public String displayIndex(final Model model, final Principal principal) {
         logger.debug("WebController: GET /");
@@ -85,7 +84,6 @@ public class WebController {
         return "landing";
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/displayTaxis")
     public String displayTaxis(final Model model) {
         logger.debug("WebController: GET /displayTaxis");
@@ -94,7 +92,6 @@ public class WebController {
         return "displayTaxis";
     }
 
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/displayBookings")
     public String displayBookings(final Model model, final Principal principal) {
         logger.debug("WebController: GET /displayBookings");
@@ -104,7 +101,6 @@ public class WebController {
         return "displayBookings";
     }
 
-    @PreAuthorize("hasAnyRole('USER')")
     @PostMapping("/assignBooking")
     public String assignBooking(final @ModelAttribute("bookingId") long bookingId, final Principal principal) {
         logger.debug("WebController: POST /assignBooking");
@@ -115,7 +111,6 @@ public class WebController {
         return "redirect:/";
     }
 
-    @PreAuthorize("hasAnyRole('USER')")
     @PostMapping("/dropoffBooking")
     public String dropoffBooking(final @ModelAttribute("bookingId") long bookingId, final Principal principal) {
         logger.debug("WebController: POST /dropoffBooking");
@@ -126,7 +121,6 @@ public class WebController {
         return "redirect:/";
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/insertBooking")
     public String insertBooking(final Model model) {
         logger.debug("WebController: GET /insertBooking");
@@ -135,7 +129,6 @@ public class WebController {
         return "insertBooking";
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/insertBooking")
     public String insertBooking(final @ModelAttribute Booking booking) {
         logger.debug("WebController: POST /insertBooking");
