@@ -56,9 +56,9 @@ public class UserServiceImpl implements UserService {
 
         logger.info("UserServiceImpl: Persisting user: " + user);
         final Set<Role> roles = new HashSet<>();
-        roles.add(roleRepository.findOneByName("ROLE_USER"));
+        roles.add(roleRepository.findByName("ROLE_USER"));
 
-        final BookingCenter bookingCenter = bookingCenterRepository.findById(1L).get();
+        final BookingCenter bookingCenter = bookingCenterRepository.findByName("Abu Dhabi");
 
         final Location location = Location.builder()
                 .location("Home")

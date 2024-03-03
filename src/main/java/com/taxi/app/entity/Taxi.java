@@ -1,10 +1,15 @@
 package com.taxi.app.entity;
 
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import lombok.Builder;
 import java.util.HashSet;
 import lombok.AccessLevel;
+
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import javax.persistence.Table;
@@ -39,7 +44,7 @@ public class Taxi implements Serializable, Comparable<Taxi> {
 
     @Id
     @Column(name = "taxi_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long taxiId;
 
     @Column(name="registration", nullable = false)
@@ -48,16 +53,16 @@ public class Taxi implements Serializable, Comparable<Taxi> {
     @Column(name = "is_available")
     private Boolean isAvailable;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "location_id", referencedColumnName = "location_id")
     private Location location;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="booking_center_id")
     private BookingCenter bookingCenter;
 
-    @OneToMany(mappedBy="taxi")
-    private Set<Booking> bookings = new HashSet<>();
+    @OneToMany(mappedBy="taxi", fetch = FetchType.EAGER)
+    private List<Booking> bookings = new ArrayList<>();
 
     @OneToOne(mappedBy = "taxi")
     private User user;

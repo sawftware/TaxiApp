@@ -6,6 +6,7 @@ import lombok.Builder;
 import java.util.HashSet;
 import lombok.AccessLevel;
 import java.io.Serializable;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Column;
@@ -34,16 +35,7 @@ public class BookingCenter implements Serializable {
 
     @Id
     @Column(name = "booking_center_id")
-    @GeneratedValue(generator = "booking-center-sg")
-    @GenericGenerator(
-            name = "booking-center-sg",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-            parameters = {
-                    @Parameter(name = "sequence_name", value = "booking_center_sequence"),
-                    @Parameter(name = "initial_value", value = "2"),
-                    @Parameter(name = "increment_size", value = "1")
-            }
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long bookingCenterId;
 
     @Column(name = "name", nullable = false)

@@ -27,11 +27,11 @@
                         </thead>
                         <tbody>
                             <tr th:each="taxi : ${taxis}">
-                                <td th:text="${taxi.getTaxiId()}" />
-                                <td th:text="${taxi.getRegistration()}" />
-                                <td th:text="${taxi.getBookingCenter().getName()}" />
-                                <td th:text="${taxi.getIsAvailable()} ? '&#x2705;' : '&#x274C' " />
-                                <td th:text="${taxi.getLocation()}" />
+                                <td th:text="${taxi.taxiId}" />
+                                <td th:text="${taxi.registration}" />
+                                <td th:text="${taxi.bookingCenter.name}" />
+                                <td th:text="${taxi.isAvailable} ? '&#x2705;' : '&#x274C' " />
+                                <td th:text="${taxi.location}" />
                             </tr>
                         </tbody>
                     </table>

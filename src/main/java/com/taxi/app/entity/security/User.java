@@ -42,7 +42,7 @@ public class User implements Serializable {
 
     @Id
     @Column(name="user_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
 
     @Column(name="username")
@@ -55,7 +55,7 @@ public class User implements Serializable {
     @Column(name="password_confirm")
     private String passwordConfirm;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "taxi_id", referencedColumnName = "taxi_id")
     private Taxi taxi;
 

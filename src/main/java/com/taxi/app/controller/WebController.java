@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
  * WebController
@@ -46,14 +45,6 @@ public class WebController {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String postLogin(final @ModelAttribute("userRegisterForm") User user) {
-        logger.debug("WebController: POST /login");
-
-        securityService.autologin(user.getUsername(), user.getPassword());
-        return "redirect:/";
-    }
-
     @GetMapping(value = {"/register"})
     public String getRegister(final Model model) {
         logger.debug("WebController: GET /register");
@@ -63,7 +54,7 @@ public class WebController {
     }
 
     @PostMapping("/register")
-    public String postRegister(final @ModelAttribute("userForm") User user) {
+    public String postRegister(final @ModelAttribute("userRegisterForm") User user) {
         logger.debug("WebController: POST /register");
 
         userService.save(user);
@@ -75,11 +66,11 @@ public class WebController {
     public String displayIndex(final Model model, final Principal principal) {
         logger.debug("WebController: GET /");
 
-        final Taxi usersTaxi = taxiService.findOneByRegistration(principal.getName());
+        final Taxi usersTaxi = taxiService.getTaxiByRegistration(principal.getName());
         model.addAttribute("taxi", usersTaxi);
         model.addAttribute("taxiBookings", bookingService.getBookings(usersTaxi));
         model.addAttribute("bookings", bookingService.getBookings());
-        model.addAttribute("taxis", taxiService.getTaxisOrderedByBookings());
+        model.addAttribute("taxis", taxiService.getTaxisOrderedByBookingsDesc());
         return "landing";
     }
 
@@ -96,7 +87,7 @@ public class WebController {
         logger.debug("WebController: GET /displayBookings");
 
         model.addAttribute("bookings", bookingService.getBookings());
-        model.addAttribute("taxi", taxiService.findOneByRegistration(principal.getName()));
+        model.addAttribute("taxi", taxiService.getTaxiByRegistration(principal.getName()));
         return "displayBookings";
     }
 
@@ -105,7 +96,7 @@ public class WebController {
         logger.debug("WebController: POST /assignBooking");
 
         bookingService.assignBooking(
-                taxiService.findOneByRegistration(principal.getName()).getTaxiId(), bookingId);
+                taxiService.getTaxiByRegistration(principal.getName()).getTaxiId(), bookingId);
 
         return "redirect:/";
     }
@@ -115,7 +106,7 @@ public class WebController {
         logger.debug("WebController: POST /dropoffBooking");
 
         bookingService.dropoffBooking(
-                taxiService.findOneByRegistration(principal.getName()).getTaxiId(), bookingId);
+                taxiService.getTaxiByRegistration(principal.getName()).getTaxiId(), bookingId);
 
         return "redirect:/";
     }

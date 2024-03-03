@@ -5,6 +5,7 @@ import lombok.Builder;
 import java.util.Date;
 import lombok.AccessLevel;
 import java.io.Serializable;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.NoArgsConstructor;
@@ -39,25 +40,25 @@ public class Booking implements Serializable {
 
     @Id
     @Column(name = "booking_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long bookingId;
 
     @Column(name = "customer", nullable = false)
     private String customer;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="booking_center_id")
     private BookingCenter bookingCenter;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "pickup", referencedColumnName = "location_id")
     private Location pickup;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "dropoff", referencedColumnName = "location_id")
     private Location dropoff;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name="taxi_id")
     private Taxi taxi;
 
@@ -81,6 +82,6 @@ public class Booking implements Serializable {
 
     @Override
     public int hashCode() {
-        return (int) bookingId * customer.hashCode() + createDt.hashCode() + assignedDt.hashCode();
+        return (int) bookingId * customer.hashCode();
     }
 }

@@ -25,19 +25,26 @@ public class SwaggerConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(SwaggerConfig.class);
 
+    private static final String API_TITLE = "TaxiApp API";
+    private static final String API_DESCRIPTION = "REST API for TaxiApp Application";
+    private static final String API_VERSION = "1.0";
+    private static final String API_BASE_PACKAGE = "com.taxi.app.controller";
+
     @Bean
     public static Docket api() {
         logger.info("SwaggerConfig: Executing api()");
 
         return new Docket(DocumentationType.SWAGGER_2).select()
-                .apis(RequestHandlerSelectors.basePackage("com.taxi.app.controller"))
+                .apis(RequestHandlerSelectors.basePackage(API_BASE_PACKAGE))
                 .paths(PathSelectors.any()).build().pathMapping("/").apiInfo(metadata());
     }
 
     private static ApiInfo metadata() {
         logger.info("SwaggerConfig: Executing metadata()");
 
-        return new ApiInfoBuilder().title("TaxiApp API")
-                .description("REST API for TaxiApp Application").version("1.0").build();
+        return new ApiInfoBuilder()
+                .title(API_TITLE)
+                .description(API_DESCRIPTION)
+                .version(API_VERSION).build();
     }
 }

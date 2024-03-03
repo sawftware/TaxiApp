@@ -50,16 +50,19 @@ public class TaxiApplication {
 		@Autowired
 		private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+		private static final String ADMIN_USERNAME = "admin";
+		private static final String ADMIN_PASSWORD = "admin";
+
 		@Override
 		public void run(final String... args) {
 			logger.debug("ApplicationRunner (CommandLineRunner): Executing run()");
 
 			final Set<Role> roles = new HashSet<>();
-			roles.add(roleRepository.findOneByName("ROLE_ADMIN"));
+			roles.add(roleRepository.findByName("ROLE_ADMIN"));
 
 			final User newAdmin = User.builder()
-					.username("admin")
-					.password(bCryptPasswordEncoder.encode("admin"))
+					.username(ADMIN_USERNAME)
+					.password(bCryptPasswordEncoder.encode(ADMIN_PASSWORD))
 					.roles(new HashSet<>(roles)).build();
 
 			userRepository.save(newAdmin);

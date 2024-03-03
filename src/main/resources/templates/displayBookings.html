@@ -34,20 +34,20 @@
                         </thead>
                         <tbody>
                             <tr th:each="booking : ${bookings}">
-                                <td th:text="${booking.getBookingId()}" />
-                                <td th:text="${booking.getBookingCenter()}" />
-                                <td th:text="${booking.getCustomer()}" />
-                                <td th:text="${booking.taxi != null} ? ${booking.getTaxi().getTaxiId()} : 'Unassigned'" />
-                                <td th:text="${booking.taxi != null} ? ${booking.getTaxi().getRegistration()} : 'Unassigned'" />
-                                <td th:text="${booking.getCreateDt()}" />
-                                <td th:text="${booking.getPickup()}" />
-                                <td th:text="${booking.assignedDt != null} ? ${booking.getAssignedDt()} : 'Unassigned'" />
-                                <td th:text="${booking.getDropoff()}" />
-                                <td th:text="${booking.dropoffDt != null} ? ${booking.getDropoffDt()} : 'Incomplete'" />
+                                <td th:text="${booking.bookingId}" />
+                                <td th:text="${booking.bookingCenter}" />
+                                <td th:text="${booking.customer}" />
+                                <td th:text="${booking.taxi != null} ? ${booking.taxi.taxiId} : 'Unassigned'" />
+                                <td th:text="${booking.taxi != null} ? ${booking.taxi.registration} : 'Unassigned'" />
+                                <td th:text="${booking.createDt}" />
+                                <td th:text="${booking.pickup}" />
+                                <td th:text="${booking.assignedDt != null} ? ${booking.assignedDt} : 'Unassigned'" />
+                                <td th:text="${booking.dropoff}" />
+                                <td th:text="${booking.dropoffDt != null} ? ${booking.dropoffDt} : 'Incomplete'" />
                                 <td sec:authorize="hasRole('USER')">
-                                    <input th:if="${booking.assignedDt == null && taxi.getIsAvailable()}" th:value="*{booking.getBookingId()}" type="hidden" name="bookingId" form="assignBookingForm" />
-                                    <input th:if="${booking.assignedDt == null && taxi.getIsAvailable()}" type="submit" value="Assign" form="assignBookingForm" />
-                                    <input th:if="${booking.assignedDt != null || !taxi.getIsAvailable()}" disabled type="submit" value="Assign" form="assignBookingForm" />
+                                    <input th:if="${booking.assignedDt == null && taxi.isAvailable}" th:value="*{booking.bookingId}" type="hidden" name="bookingId" form="assignBookingForm" />
+                                    <input th:if="${booking.assignedDt == null && taxi.isAvailable}" type="submit" value="Assign" form="assignBookingForm" />
+                                    <input th:if="${booking.assignedDt != null || !taxi.isAvailable}" disabled type="submit" value="Assign" form="assignBookingForm" />
                                 </td>
                             </tr>
                         </tbody>

@@ -33,7 +33,7 @@ public class Location implements Serializable {
 
     @Id
     @Column(name = "location_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long locationId;
 
     @Column(name="location")

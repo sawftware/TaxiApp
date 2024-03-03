@@ -37,11 +37,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         logger.debug("UserDetailsServiceImpl: Executing loadUserByUsername()");
 
         logger.debug("UserDetailsServiceImpl: Loading user: " + username);
-        final User user = userRepository.findOneByUsername(username);
+        final User user = userRepository.findByUsername(username);
         logger.debug("UserDetailsServiceImpl: Loaded user: " + user);
 
         final Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-
         for (final Role role : user.getRoles()){
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
         }

@@ -20,10 +20,12 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     private static final Logger logger = LoggerFactory.getLogger(LoginSuccessHandler.class);
 
+    private static final String LANDING_REDIRECT_PAGE = "/";
+
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest httpServletRequest, final HttpServletResponse httpServletResponse, final Authentication authentication) throws IOException {
         logger.debug("LoginSuccessHandler: Executing onAuthenticationSuccess()");
 
-        httpServletResponse.sendRedirect("/");
+        httpServletResponse.sendRedirect(LANDING_REDIRECT_PAGE);
     }
 }

@@ -31,15 +31,15 @@ public class TaxiServiceImpl implements TaxiService {
     }
 
     @Override
-    public Set<Taxi> getTaxisOrderedByBookings() {
+    public Iterable<Taxi> getTaxisOrderedByBookingsDesc() {
         logger.debug("TaxiServiceImpl: Executing getTaxisOrderedByBookings()");
 
         return taxiRepository.findByOrderByBookingsDesc();
     }
 
     @Override
-    public Taxi findOneByRegistration(final String registration) {
-        logger.debug("TaxiServiceImpl: Executing findOneByRegistration()");
+    public Taxi getTaxiByRegistration(final String registration) {
+        logger.debug("TaxiServiceImpl: Executing findByRegistration()");
 
         return taxiRepository.findByRegistration(registration);
     }

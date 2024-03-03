@@ -12,4 +12,6 @@ import org.springframework.data.repository.CrudRepository;
  * Location Repository used for database management of the Location entity
  */
 @Repository
-public interface LocationRepository extends CrudRepository<Location, Long> { }
+public interface LocationRepository extends CrudRepository<Location, Long> {
+    Location findByLocation(final String name);
+}

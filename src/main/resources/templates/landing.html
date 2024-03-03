@@ -18,7 +18,7 @@
                     <br>
                     <h1>Your Current Availability Status: </h1><h2> <span th:text="${taxi != null && taxi.isAvailable} ? '&#x2705; (Available)' : '&#x274C; (Booked)'" /> </h2>
                     <br>
-                    <h1>Your Current Location:</h1><h2><span th:text="${taxi.getLocation()}" /> </h2>
+                    <h1>Your Current Location:</h1><h2><span th:text="${taxi.location}" /> </h2>
                     <br> <br>
                     <h1>Your Booking History</h1>
 
@@ -40,16 +40,16 @@
                             </thead>
                             <tbody>
                             <tr th:each="booking : ${taxiBookings}">
-                                <td th:text="${booking.getBookingId()}" />
-                                <td th:text="${booking.getBookingCenter()}" />
-                                <td th:text="${booking.getCustomer()}" />
-                                <td th:text="${booking.getCreateDt()}" />
-                                <td th:text="${booking.getPickup()}" />
-                                <td th:text="${booking.getAssignedDt()}" />
-                                <td th:text="${booking.getDropoff()}" />
-                                <td th:text="${booking.dropoffDt != null} ? ${booking.getDropoffDt()} : 'Incomplete'" />
+                                <td th:text="${booking.bookingId}" />
+                                <td th:text="${booking.bookingCenter}" />
+                                <td th:text="${booking.customer}" />
+                                <td th:text="${booking.createDt}" />
+                                <td th:text="${booking.pickup}" />
+                                <td th:text="${booking.assignedDt}" />
+                                <td th:text="${booking.dropoff}" />
+                                <td th:text="${booking.dropoffDt != null} ? ${booking.dropoffDt} : 'Incomplete'" />
                                 <td>
-                                    <input th:if="${booking.dropoffDt == null}" th:value="*{booking.getBookingId()}" type="hidden" name="bookingId" form="dropoffBookingForm" />
+                                    <input th:if="${booking.dropoffDt == null}" th:value="*{booking.bookingId}" type="hidden" name="bookingId" form="dropoffBookingForm" />
                                     <input th:if="${booking.dropoffDt == null}" type="submit" value="Dropoff" form="dropoffBookingForm" />
                                     <input th:if="${booking.dropoffDt != null}" disabled type="submit" value="Dropoff" form="dropoffBookingForm" />
                                 </td>
@@ -78,11 +78,11 @@
                             </thead>
                             <tbody>
                             <tr th:each="taxi : ${taxis}">
-                                <td th:text="${taxi.getBookingCenter()}" />
-                                <td th:text="${taxi.getTaxiId()}" />
-                                <td th:text="${taxi.getRegistration()}" />
-                                <td th:text="${taxi.getBookings().size()}" />
-                                <td th:text="${taxi.getBookings()}" />
+                                <td th:text="${taxi.bookingCenter}" />
+                                <td th:text="${taxi.taxiId}" />
+                                <td th:text="${taxi.registration}" />
+                                <td th:text="${taxi.bookings.size()}" />
+                                <td th:text="${taxi.bookings}" />
                             </tr>
                             </tbody>
                         </table>

@@ -4,7 +4,8 @@
 ## Requirements / Technologies
 - Project requires JDK 1.8 (1.8.0_402)
 - MVN v3 (3.9.6)
-- Spring Boot v2 (2.1.0)
+- Spring Boot v2 (2.1.0.RELEASE)
+- Spring v5 (v5.1.2.RELEASE)
 
 ## How to start the application
 ```mvn package && java -jar target\TaxiApp-0.0.1-SNAPSHOT.jar```
@@ -28,3 +29,4 @@
 - [x] Documentation and UML Diagrams
 - [x] Containerization and README
 - [x] Meaningful Unit Testing / Integration Testing
+- [x] 90% Code Coverage

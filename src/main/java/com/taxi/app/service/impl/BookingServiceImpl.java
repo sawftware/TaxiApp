@@ -57,7 +57,7 @@ public class BookingServiceImpl implements BookingService {
     public void insertBooking(final Booking booking) {
         logger.debug("BookingServiceImpl: Executing insertBooking()");
 
-        final BookingCenter bookingCenter = bookingCenterRepository.findById(1L).get();
+        final BookingCenter bookingCenter = bookingCenterRepository.findByName("Abu Dhabi");
         logger.debug("BookingServiceImpl: Booking center found: " + bookingCenter);
 
         final Location pickup = Location.builder()
