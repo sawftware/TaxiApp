@@ -1,15 +1,10 @@
 package com.taxi.app.entity;
 
 import lombok.Data;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import lombok.Builder;
-import java.util.HashSet;
 import lombok.AccessLevel;
-
-import javax.persistence.FetchType;
+import java.util.ArrayList;
 import javax.persistence.Id;
 import java.io.Serializable;
 import javax.persistence.Table;
@@ -18,6 +13,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import lombok.AllArgsConstructor;
 import javax.persistence.OneToOne;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;

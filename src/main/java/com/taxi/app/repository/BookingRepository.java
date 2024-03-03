@@ -1,11 +1,10 @@
 package com.taxi.app.repository;
 
+import java.util.List;
 import com.taxi.app.entity.Taxi;
 import com.taxi.app.entity.Booking;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.repository.CrudRepository;
-
-import java.util.List;
 
 /**
  * BookingRepository

@@ -6,7 +6,6 @@ import lombok.Builder;
 import java.util.HashSet;
 import lombok.AccessLevel;
 import java.io.Serializable;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Column;
@@ -14,9 +13,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import lombok.AllArgsConstructor;
 import javax.persistence.OneToMany;
+import javax.persistence.GenerationType;
 import javax.persistence.GeneratedValue;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.GenericGenerator;
 
 /**
  * BookingCenter Model/Entity

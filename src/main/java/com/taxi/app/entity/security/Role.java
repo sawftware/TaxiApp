@@ -13,9 +13,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import lombok.AllArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.GeneratedValue;
