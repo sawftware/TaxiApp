@@ -22,6 +22,10 @@
 ## H2 Database
 - http://localhost:8080/h2-console/ (sa/password)
 
+## Unit Test Coverage - 90%
+[](https://github.com/sawftware/TaxiApp/blob/main/readme-img/UnitTestCoverage.png)
+
+
 ## Requirements
 - [x] List all taxis with their status and location
 - [x] Publish a new booking to all available taxis
@@ -35,4 +39,16 @@
 - [x] 90% Code Coverage
 
 ## Screenshots / User Guide
-![](https://github.com/AlanKavo92/TaxiApp/blob/master/Swagger-API.PNG)
+[](https://github.com/sawftware/TaxiApp/blob/main/readme-img/Login.png)
+
+[](https://github.com/sawftware/TaxiApp/blob/main/readme-img/InsertBooking.png)
+
+[](https://github.com/sawftware/TaxiApp/blob/main/readme-img/RegisterTaxi.png)
+
+[](https://github.com/sawftware/TaxiApp/blob/main/readme-img/DisplayBookings.png)
+
+[](https://github.com/sawftware/TaxiApp/blob/main/readme-img/DisplayTaxis.png)
+
+[](https://github.com/sawftware/TaxiApp/blob/main/readme-img/TaxiDashboard.png)
+
+[](https://github.com/sawftware/TaxiApp/blob/main/readme-img/AdminDashboard.png)
