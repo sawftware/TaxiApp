@@ -1,7 +1,7 @@
 # TaxiApp
 ### TaxiApp take-home coding assessment
 
-## Requirements / Pre-requisites
+## Requirements / Prerequisites
 - Application requires JDK 1.8 (1.8.0_402)
 - Application requires MVN v3 (3.9.6)
 
