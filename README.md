@@ -45,16 +45,23 @@
 - [x] 90% Code Coverage
 
 ## Screenshots / User Guide
+## login.html
 ![](https://github.com/sawftware/TaxiApp/blob/main/readme-img/Login.png)
 
+## insertBooking.html
 ![](https://github.com/sawftware/TaxiApp/blob/main/readme-img/InsertBooking.png)
 
+## register.html
 ![](https://github.com/sawftware/TaxiApp/blob/main/readme-img/RegisterTaxi.png)
 
+## displayBookings.html
 ![](https://github.com/sawftware/TaxiApp/blob/main/readme-img/DisplayBookings.png)
 
+## displayTaxis.html
 ![](https://github.com/sawftware/TaxiApp/blob/main/readme-img/DisplayTaxis.png)
 
+## landing.html (User Role)
 ![](https://github.com/sawftware/TaxiApp/blob/main/readme-img/TaxiDashboard.png)
 
+## landing.html (Admin Role)
 ![](https://github.com/sawftware/TaxiApp/blob/main/readme-img/AdminDashboard.png)
