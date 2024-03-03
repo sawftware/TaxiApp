@@ -10,10 +10,10 @@
 ## How to start the application
 ```mvn package && java -jar target\TaxiApp-0.0.1-SNAPSHOT.jar```
 
-## How to build the project and run the unit tests
+## How to build the project and execute the unit tests
 ```mvn clean install```
 
-## Default homepage:port - default user login: 
+## Default homepage and login: 
 - http://localhost:8080/ - admin/admin
 
 ## Swagger UI
