@@ -42,6 +42,8 @@ public class WebController {
 
     @GetMapping(value = {"/login"})
     public String getLogin() {
+        logger.debug("WebController: GET /login");
+
         return "login";
     }
 
