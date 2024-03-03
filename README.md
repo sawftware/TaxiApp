@@ -10,8 +10,11 @@
 ## How to start the application
 ```mvn package && java -jar target\TaxiApp-0.0.1-SNAPSHOT.jar```
 
-## Default user login: 
-- admin/admin
+## How to build the project and run the unit tests
+```mvn clean install```
+
+## Default homepage:port - default user login: 
+- http://localhost:8080/ - admin/admin
 
 ## Swagger UI
 - http://localhost:8080/swagger-ui.html
@@ -30,3 +33,6 @@
 - [x] Containerization and README
 - [x] Meaningful Unit Testing / Integration Testing
 - [x] 90% Code Coverage
+
+## Screenshots / User Guide
+![](https://github.com/AlanKavo92/TaxiApp/blob/master/Swagger-API.PNG)
