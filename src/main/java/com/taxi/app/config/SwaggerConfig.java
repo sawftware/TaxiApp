@@ -32,7 +32,7 @@ public class SwaggerConfig {
 
     @Bean
     public static Docket api() {
-        logger.info("SwaggerConfig: Executing api()");
+        logger.debug("SwaggerConfig: Executing api()");
 
         return new Docket(DocumentationType.SWAGGER_2).select()
                 .apis(RequestHandlerSelectors.basePackage(API_BASE_PACKAGE))
@@ -40,7 +40,7 @@ public class SwaggerConfig {
     }
 
     private static ApiInfo metadata() {
-        logger.info("SwaggerConfig: Executing metadata()");
+        logger.debug("SwaggerConfig: Executing metadata()");
 
         return new ApiInfoBuilder()
                 .title(API_TITLE)
