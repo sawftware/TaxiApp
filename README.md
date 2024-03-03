@@ -20,13 +20,13 @@
 ```mvn clean install```
 
 ## Default homepage and login: 
-- http://localhost:8080/ - admin/admin
+- http://localhost:8080/ - (admin/admin)
 
 ## Swagger UI
 - http://localhost:8080/swagger-ui.html
 
-## H2 Database
-- http://localhost:8080/h2-console/ (sa/password)
+## H2 console and login
+- http://localhost:8080/h2-console/ - (sa/password)
 
 ## Unit Test Coverage - 90%
 ![](https://github.com/sawftware/TaxiApp/blob/main/readme-img/UnitTestCoverage.png)
