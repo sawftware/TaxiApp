@@ -60,8 +60,8 @@
 ## displayTaxis.html
 ![](https://github.com/sawftware/TaxiApp/blob/main/readme-img/DisplayTaxis.png)
 
-## landing.html (User Role)
+## landing.html (User/Taxi Role)
 ![](https://github.com/sawftware/TaxiApp/blob/main/readme-img/TaxiDashboard.png)
 
-## landing.html (Admin Role)
+## landing.html (Admin/Booking Center Role)
 ![](https://github.com/sawftware/TaxiApp/blob/main/readme-img/AdminDashboard.png)
