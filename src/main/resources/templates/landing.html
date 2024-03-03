@@ -13,8 +13,8 @@
 
         <div class="container">
             <div class="row">
-                <h1 class="text-center">Dashboard</h1>
                 <div sec:authorize="hasRole('USER')">
+                    <h1 class="text-center">Taxi Dashboard</h1>
                     <br>
                     <h1>Your Current Availability Status: </h1><h2> <span th:text="${taxi != null && taxi.isAvailable} ? '&#x2705; (Available)' : '&#x274C; (Booked)'" /> </h2>
                     <br>
@@ -63,6 +63,7 @@
                 </div>
 
                 <div sec:authorize="hasRole('ADMIN')">
+                    <h1 class="text-center">Admin Dashboard</h1>
                     <h1>Bookings Statistics</h1>
 
                     <div th:if="!${#lists.isEmpty(taxis)}">
