@@ -46,8 +46,8 @@
                                 <td th:text="${booking.dropoffDt != null} ? ${booking.dropoffDt} : 'Incomplete'" />
                                 <td sec:authorize="hasRole('USER')">
                                     <input th:if="${booking.assignedDt == null && taxi.isAvailable}" th:value="*{booking.bookingId}" type="hidden" name="bookingId" form="assignBookingForm" />
-                                    <input th:if="${booking.assignedDt == null && taxi.isAvailable}" type="submit" value="Assign" form="assignBookingForm" />
-                                    <input th:if="${booking.assignedDt != null || !taxi.isAvailable}" disabled type="submit" value="Assign" form="assignBookingForm" />
+                                    <input th:if="${booking.assignedDt == null && taxi.isAvailable}" type="submit" value="Pickup" form="assignBookingForm" />
+                                    <input th:if="${booking.assignedDt != null || !taxi.isAvailable}" disabled type="submit" value="Pickup" form="assignBookingForm" />
                                 </td>
                             </tr>
                         </tbody>
