@@ -1,11 +1,17 @@
 # TaxiApp
 ### TaxiApp take-home coding assessment
 
-## Requirements / Technologies
-- Project requires JDK 1.8 (1.8.0_402)
-- MVN v3 (3.9.6)
-- Spring Boot v2 (2.1.0.RELEASE)
-- Spring v5 (v5.1.2.RELEASE)
+## Requirements / Pre-requisites
+- Application requires JDK 1.8 (1.8.0_402)
+- Application requires MVN v3 (3.9.6)
+
+## Technologies (Maven External Dependencies)
+- Application uses Spring Boot (Version 2.1.0.RELEASE)
+- Application uses Spring (Version 5.1.2.RELEASE)
+- Application uses Thymeleaf (Version 3.0.11.RELEASE)
+- Application uses H2 Database (Version 1.4.197)
+- Application uses Swagger (Version 2.9.2)
+- Application uses JUnit (Version 4.12)
 
 ## How to start the application
 ```mvn package && java -jar target\TaxiApp-0.0.1-SNAPSHOT.jar```
