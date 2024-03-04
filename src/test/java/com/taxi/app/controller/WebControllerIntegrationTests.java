@@ -131,7 +131,6 @@ public class WebControllerIntegrationTests {
                 .andExpect(content().string(containsString("Display Bookings")));
     }
 
-
     @Test
     @WithMockUser(username=TestConstants.ADMIN,roles={"ADMIN"})
     public void whenGetLandingAsAdmin_thenStatus200() throws Exception {
@@ -140,13 +139,4 @@ public class WebControllerIntegrationTests {
                         .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
                 .andExpect(content().string(containsString("Bookings Statistics")));
     }
-
-    private static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 }
