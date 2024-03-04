@@ -12,6 +12,7 @@
 - Application uses H2 Database (Version 1.4.197)
 - Application uses Swagger (Version 2.9.2)
 - Application uses JUnit (Version 4.12)
+- Application uses Hibernate Core {Version 5.3.7.Final}
 
 ## How to start the application
 ```mvn package && java -jar target\TaxiApp-0.0.1-SNAPSHOT.jar```
