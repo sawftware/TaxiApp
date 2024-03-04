@@ -31,6 +31,9 @@
 ## Unit Test Coverage - 90%
 ![](https://github.com/sawftware/TaxiApp/blob/main/readme-img/UnitTestCoverage.png)
 
+## Entity Relationship Diagram
+![](https://github.com/sawftware/TaxiApp/blob/main/readme-img/ERDiagram.png)
+
 
 ## Requirements
 - [x] List all taxis with their status and location
