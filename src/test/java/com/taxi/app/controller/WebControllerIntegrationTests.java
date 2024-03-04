@@ -141,7 +141,7 @@ public class WebControllerIntegrationTests {
                 .andExpect(content().string(containsString("Bookings Statistics")));
     }
 
-    public static String asJsonString(final Object obj) {
+    private static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
         } catch (Exception e) {
