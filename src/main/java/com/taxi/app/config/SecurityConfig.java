@@ -85,7 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/css/**", "/images/**").permitAll()
                 .antMatchers("/", "/landing", "displayBookings", "displayTaxis", "insertBooking").authenticated()
                 .and().authorizeRequests().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**","/swagger-resources/configuration/ui","/swagger-ui.html").permitAll().anyRequest().authenticated()
-                .and().authorizeRequests().antMatchers("/h2-console/**").permitAll().anyRequest().authenticated()
+                .and().authorizeRequests().antMatchers("/h2-console/**").permitAll()
                 .and().csrf().ignoringAntMatchers("/h2-console/**")
                 .and()
                 .formLogin()
@@ -95,6 +95,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll()
+                .and().headers().frameOptions().disable()
                 .and().csrf().disable();
     }
 }
